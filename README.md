@@ -39,9 +39,9 @@ Traditionally, the only way to customize this representation is by conforming to
 extension Person: CompositionStringConvertible {
   func describe(to formatter: inout CompositionFormatter) {
     formatter.includesNilValues = false
-    formatter.append(value: fullName)
-    formatter.append(label: "age", value: age)
-    formatter.append(label: "pet", value: pet)
+    formatter.append(fullName)
+    formatter.append(label: "age", age)
+    formatter.append(label: "pet", pet)
   }
 }
 ```
@@ -61,7 +61,7 @@ print(p) // "Person("Matt Comi", age: 42)"
 Values appended to the `CompositionFormatter` are formatted using `String(describing:)`. This behavior may be overridden on platforms where `FormatStyle` is available:
 
 ```swift
-public mutating func append<T, U: FormatStyle>(label: String? = nil, value: T?, formatStyle: U)
+public mutating func append<T, U: FormatStyle>(label: String? = nil, _ value: T?, formatStyle: U)
 where T == U.FormatInput, U.FormatOutput == String
 ```
 
@@ -86,8 +86,8 @@ By conforming to `CompositionStringConvertible` the progress of the task may be 
 ```swift
 extension Task: CompositionStringConvertible {
   func describe(to formatter: inout CompositionFormatter) {
-    formatter.append(value: name)
-    formatter.append(label: "progress", value: progress, formatStyle: .percent)
+    formatter.append(name)
+    formatter.append(label: "progress", progress, formatStyle: .percent)
   }
 }
 

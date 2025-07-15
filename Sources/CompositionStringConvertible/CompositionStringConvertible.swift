@@ -38,9 +38,9 @@ import Foundation
 /// extension Person: CompositionStringConvertible {
 ///   func describe(to formatter: inout CompositionFormatter) {
 ///     formatter.includesNilValues = false
-///     formatter.append(value: fullName)
-///     formatter.append(label: "age", value: age)
-///     formatter.append(label: "pet", value: pet)
+///     formatter.append(fullName)
+///     formatter.append(label: "age", age)
+///     formatter.append(label: "pet", pet)
 ///   }
 /// }
 /// ```
