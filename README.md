@@ -61,7 +61,7 @@ print(p) // "Person("Matt Comi", age: 42)"
 Values appended to the `CompositionFormatter` are formatted using `String(describing:)`. This behavior may be overridden on platforms where `FormatStyle` is available:
 
 ```swift
-public mutating func append<T, U: FormatStyle>(label: String? = nil, _ value: T?, formatStyle: U)
+func append<T, U: FormatStyle>(label: String? = nil, _ value: T?, formatStyle: U)
 where T == U.FormatInput, U.FormatOutput == String
 ```
 
@@ -81,7 +81,7 @@ let t = Task(name: "Tidy Garden", progress: 0.2)
 print(t) // "Task(name: "Tidy Garden", progress: 0.2) 
 ```
 
-By conforming to `CompositionStringConvertible` the progress of the task may be represented as a percentage: 
+By conforming to `CompositionStringConvertible` a task's progress may be represented as a percentage: 
 
 ```swift
 extension Task: CompositionStringConvertible {
