@@ -14,8 +14,8 @@ import CompositionStringConvertible
     func describe(to formatter: inout CompositionFormatter) {
       formatter.includesNilValues = false
       formatter.append([firstName, lastName].joined(separator: " "))
-      formatter.append(label: "age", age)
-      formatter.append(label: "pet", pet)
+      formatter.append(age, label: "age")
+      formatter.append(pet, label: "pet")
     }
   }
 
@@ -68,8 +68,8 @@ import CompositionStringConvertible
 
     func describe(to formatter: inout CompositionFormatter) {
       formatter.includesNilValues = includesNilValues
-      formatter.append(label: "x", x)
-      formatter.append(label: "y", y)
+      formatter.append(x, label: "x")
+      formatter.append(y, label: "y")
     }
   }
 
@@ -93,7 +93,7 @@ import CompositionStringConvertible
 
     func describe(to formatter: inout CompositionFormatter) {
       formatter.append(name)
-      formatter.append(label: "progress", progress, formatStyle: .percent)
+      formatter.append(progress, formatStyle: .percent, label: "progress")
     }
   }
 

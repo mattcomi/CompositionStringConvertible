@@ -39,8 +39,8 @@ import Foundation
 ///   func describe(to formatter: inout CompositionFormatter) {
 ///     formatter.includesNilValues = false
 ///     formatter.append(fullName)
-///     formatter.append(label: "age", age)
-///     formatter.append(label: "pet", pet)
+///     formatter.append(age, label: "age")
+///     formatter.append(pet, label: "pet")
 ///   }
 /// }
 /// ```
@@ -72,8 +72,8 @@ extension CompositionStringConvertible {
 /// A formatter that produces a textual representation of a type based on its name and components.
 public struct CompositionFormatter {
   private struct Component: CustomStringConvertible {
-    let label: String?
     let value: String?
+    let label: String?
     let isString: Bool
 
     var description: String {
@@ -104,10 +104,10 @@ public struct CompositionFormatter {
   }
 
   /// Appends a component to the `ComponentFormatter`.
-  public mutating func append<T>(label: String? = nil, _ value: T?) {
+  public mutating func append<T>(_ value: T?, label: String? = nil) {
     let isString = value is any StringProtocol
 
-    components.append(.init(label: label, value: value.map { String(describing: $0) }, isString: isString))
+    components.append(.init(value: value.map { String(describing: $0) }, label: label, isString: isString))
   }
 
   /// Returns the textual representation of the type.
@@ -131,11 +131,11 @@ public struct CompositionFormatter {
   @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
   extension CompositionFormatter {
     /// Appends the component to the `ComponentFormatter` formatted with the given `FormatStyle`.
-    public mutating func append<T, U: FormatStyle>(label: String? = nil, _ value: T?, formatStyle: U)
+    public mutating func append<T, U: FormatStyle>(_ value: T?, formatStyle: U, label: String? = nil)
     where T == U.FormatInput, U.FormatOutput == String {
       let isString = value is any StringProtocol
 
-      components.append(.init(label: label, value: value.map { formatStyle.format($0) }, isString: isString))
+      components.append(.init(value: value.map { formatStyle.format($0) }, label: label, isString: isString))
     }
   }
 #endif
